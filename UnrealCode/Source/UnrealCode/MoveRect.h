@@ -6,6 +6,15 @@
 #include "GameFramework/Actor.h"
 #include "MoveRect.generated.h"
 
+UENUM(BlueprintType)
+enum class EN_MoveType : uint8
+{
+	MoveRight UMETA(Display = "Right"),
+	MoveUp UMETA(Display = "Up"),
+	MoveLeft UMETA(Display = "Left"),
+	MoveDown UMETA(Display = "Down"),
+};
+
 UCLASS()
 class UNREALCODE_API AMoveRect : public AActor
 {
@@ -29,4 +38,10 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly)
 	UStaticMeshComponent* StaticMesh;
+
+	float LocX;
+
+	float LocZ;
+
+	EN_MoveType MoveType;
 };

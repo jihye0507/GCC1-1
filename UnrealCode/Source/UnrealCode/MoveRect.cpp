@@ -4,7 +4,7 @@
 #include "MoveRect.h"
 
 // Sets default values
-AMoveRect::AMoveRect()
+AMoveRect::AMoveRect():LocX(0), LocZ(0), MoveType(EN_MoveType::MoveRight)
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -31,5 +31,41 @@ void AMoveRect::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	switch (MoveType)
+	{
+	case EN_MoveType::MoveRight:
+		{
+		//Right
+		LocX = LocX + 1;// LocX += 1;
+
+		StaticMesh->SetRelativeLocation(FVector(LocX, 0, 0));
+
+		FVector location = StaticMesh->GetRelativeLocation();
+		if (location.X > 200)
+		{
+			MoveType = EN_MoveType::MoveUp;
+		}
+		
+		}
+		break;
+	case EN_MoveType::MoveUp:
+		{
+		//Up
+		MoveType = EN_MoveType::MoveLeft;
+		}
+		break;
+	case EN_MoveType::MoveLeft:
+		{
+		//Left
+		}
+		break;
+	case EN_MoveType::MoveDown:
+		{
+		//Down
+		}
+		break;
+	default:
+		break;
+	}
 }
 
