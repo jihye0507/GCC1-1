@@ -33,37 +33,34 @@ void AMoveRect::Tick(float DeltaTime)
 
 	switch (MoveType)
 	{
-	case EN_MoveType::MoveRight:
-		{
-		//Right
+	case EN_MoveType::MoveRight:{ //Right
 		LocX = LocX + 1;// LocX += 1;
+		StaticMesh->SetRelativeLocation(FVector(LocX, 0, LocZ));
 
-		StaticMesh->SetRelativeLocation(FVector(LocX, 0, 0));
-
-		FVector location = StaticMesh->GetRelativeLocation();
-		if (location.X > 200)
-		{
+		if (StaticMesh->GetRelativeLocation().X > 200){
 			MoveType = EN_MoveType::MoveUp;
-		}
-		
-		}
-		break;
-	case EN_MoveType::MoveUp:
-		{
-		//Up
-		MoveType = EN_MoveType::MoveLeft;
-		}
-		break;
-	case EN_MoveType::MoveLeft:
-		{
-		//Left
-		}
-		break;
-	case EN_MoveType::MoveDown:
-		{
-		//Down
-		}
-		break;
+		}}break;
+	case EN_MoveType::MoveUp:{ //Up
+		LocZ = LocZ + 1;// LocX += 1;
+		StaticMesh->SetRelativeLocation(FVector(LocX, 0, LocZ));
+
+		if (StaticMesh->GetRelativeLocation().Z > 200){
+			MoveType = EN_MoveType::MoveLeft;
+		}}break;
+	case EN_MoveType::MoveLeft:{ //Left
+		LocX = LocX - 1;// LocX += 1;
+		StaticMesh->SetRelativeLocation(FVector(LocX, 0, LocZ));
+
+		if (StaticMesh->GetRelativeLocation().X < 0) {
+			MoveType = EN_MoveType::MoveDown;
+		}}break;
+	case EN_MoveType::MoveDown:{ //Down
+		LocZ = LocZ - 1;// LocX += 1;
+		StaticMesh->SetRelativeLocation(FVector(LocX, 0, LocZ));
+
+		if (StaticMesh->GetRelativeLocation().Z < 0){
+			MoveType = EN_MoveType::MoveRight;
+		}}break;
 	default:
 		break;
 	}
